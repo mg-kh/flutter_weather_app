@@ -360,6 +360,7 @@ class Map extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              //!Temp
                               ForecastStatusBlock(
                                 title: 'Temp',
                                 result: '${forecast['temp']["eve"]} \u2103',
@@ -367,13 +368,15 @@ class Map extends StatelessWidget {
                               SizedBox(
                                 width: 15,
                               ),
+                              //!wind speed
                               ForecastStatusBlock(
                                 title: 'Wind speed',
-                                result: '${forecast['wind_speed']}',
+                                result: '${forecast['wind_speed']} m/s',
                               ),
                               SizedBox(
                                 width: 15,
                               ),
+                              //!humidity
                               ForecastStatusBlock(
                                 title: 'Humidity',
                                 result: '${forecast['humidity']} %',

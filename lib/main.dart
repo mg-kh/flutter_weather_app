@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: routes,
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Nunito'
+      ),
       home: Scaffold(
         backgroundColor: kPrimaryColor,
         body: Container(
