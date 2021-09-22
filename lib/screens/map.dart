@@ -13,7 +13,7 @@ class Map extends StatelessWidget {
   Widget build(BuildContext context) {
     WeatherController weatherController = Get.put(WeatherController());
     MapController mapController = MapController();
-    var pos = LatLng(20.46, 96.33).obs;
+    var pos = LatLng(17.371873, 96.443244).obs;
     var zoomLevel = 5.0.obs;
     void zoomIncre() {
       zoomLevel.value++;
@@ -43,10 +43,8 @@ class Map extends StatelessWidget {
                       zoom: zoomLevel.value,
                       onTap: (tapPosition, point) async {
                         pos(point);
-                        print(point);
                         await weatherController.getWeatherData(
                             lat: pos.value.latitude, long: pos.value.longitude);
-                        print('Data is ==> $weatherController.weatherData.value');
                         if(weatherController.weatherData.value == null){
                           Get.defaultDialog(
                             title: 'Error!',
@@ -214,6 +212,7 @@ class Map extends StatelessWidget {
                     Container(
                       child: Column(
                         children: [
+                          //!Location data
                           Text(
                             '${weatherController.locationData}',
                             style: TextStyle(fontSize: 16),
@@ -221,17 +220,19 @@ class Map extends StatelessWidget {
                           SizedBox(
                             height: 20,
                           ),
+                          //!Weather photo
                           CircleAvatar(
                             radius: 50,
                             backgroundColor: kSecondaryColor.withOpacity(0.8),
                             child: Image.network(
-                                'http://openweathermap.org/img/wn/${weatherController.weatherData.value!.current.weather[0].icon}@2x.png'),
+                                'http://openweathermap.org/img/wn/${weatherController.weatherData.value.current["weather"][0]["icon"]}@2x.png'),
                           ),
                           SizedBox(
                             height: 20,
                           ),
+                          //!Weather Status
                           Text(
-                            '${weatherController.weatherData.value!.current.weather[0].main}',
+                            '${weatherController.weatherData.value.current["weather"][0]['main']}',
                             style: TextStyle(
                                 fontSize: kWeatherStatusTextSize,
                                 fontWeight: FontWeight.bold),
@@ -239,23 +240,24 @@ class Map extends StatelessWidget {
                           SizedBox(
                             height: 20,
                           ),
+                          // !Extra data
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               StatusBlock(
                                 title: 'Temp',
                                 result:
-                                    '${weatherController.weatherData.value!.current.temp} \u2103',
+                                    '${weatherController.weatherData.value.current['temp']} \u2103',
                               ),
                               StatusBlock(
                                 title: 'Wind speed',
                                 result:
-                                    '${weatherController.weatherData.value!.current.windSpeed}',
+                                    '${weatherController.weatherData.value.current['wind_speed']} m/s',
                               ),
                               StatusBlock(
                                 title: 'Humidity',
                                 result:
-                                    '${weatherController.weatherData.value!.current.humidity} %',
+                                    '${weatherController.weatherData.value.current['humidity']} %',
                               ),
                             ],
                           )
@@ -268,7 +270,7 @@ class Map extends StatelessWidget {
                     ),
 
                     //  Focus
-                    foreCastBuilder(weatherController.weatherData.value!.daily)
+                    foreCastBuilder(weatherController.weatherData.value.daily)
                   ],
                 );
               }
@@ -301,7 +303,7 @@ class Map extends StatelessWidget {
                           backgroundColor: kPrimaryColor.withOpacity(0.5),
                           radius: 35,
                           child: Image.network(
-                              'http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png'),
+                              'http://openweathermap.org/img/wn/${forecast['weather'][0]["icon"]}@2x.png'),
                         ),
                         SizedBox(
                           height: 10,
@@ -317,13 +319,13 @@ class Map extends StatelessWidget {
                               text: TextSpan(children: [
                                 TextSpan(
                                     text:
-                                        '${DateTime.parse(DateTime.fromMillisecondsSinceEpoch(forecast.dt * 1000).toString()).day}/ '),
+                                        '${DateTime.parse(DateTime.fromMillisecondsSinceEpoch(forecast['dt'] * 1000).toString()).day}/ '),
                                 TextSpan(
                                     text:
-                                        '${DateTime.parse(DateTime.fromMillisecondsSinceEpoch(forecast.dt * 1000).toString()).month}/ '),
+                                        '${DateTime.parse(DateTime.fromMillisecondsSinceEpoch(forecast['dt'] * 1000).toString()).month}/ '),
                                 TextSpan(
                                     text:
-                                        '${DateTime.parse(DateTime.fromMillisecondsSinceEpoch(forecast.dt * 1000).toString()).year}'),
+                                        '${DateTime.parse(DateTime.fromMillisecondsSinceEpoch(forecast['dt'] * 1000).toString()).year}'),
                               ]),
                             ),
                           ),
@@ -338,9 +340,9 @@ class Map extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          //Weather main
+                          //!Weather main
                           Text(
-                            '${forecast.weather[0].main}',
+                            '${forecast['weather'][0]["main"]}',
                             style:
                                 TextStyle(fontSize: 25, color: kPrimaryColor),
                           ),
@@ -348,7 +350,7 @@ class Map extends StatelessWidget {
                             height: 3,
                           ),
                           Text(
-                            '${forecast.weather[0].description}',
+                            '${forecast['weather'][0]["description"]}',
                             style:
                                 TextStyle(fontSize: 14, color: kPrimaryColor),
                           ),
@@ -360,21 +362,21 @@ class Map extends StatelessWidget {
                             children: [
                               ForecastStatusBlock(
                                 title: 'Temp',
-                                result: '${forecast.temp.eve} \u2103',
+                                result: '${forecast['temp']["eve"]} \u2103',
                               ),
                               SizedBox(
                                 width: 15,
                               ),
                               ForecastStatusBlock(
                                 title: 'Wind speed',
-                                result: '${forecast.windSpeed}',
+                                result: '${forecast['wind_speed']}',
                               ),
                               SizedBox(
                                 width: 15,
                               ),
                               ForecastStatusBlock(
                                 title: 'Humidity',
-                                result: '${forecast.humidity} %',
+                                result: '${forecast['humidity']} %',
                               ),
                             ],
                           )
