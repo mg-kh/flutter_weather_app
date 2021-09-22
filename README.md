@@ -1,16 +1,22 @@
-# weather
+# Weather api app
 
-A new Flutter project.
+App build with flutter.
 
-## Getting Started
+--- 
 
-This project is a starting point for a Flutter application.
+## About App
 
-A few resources to get you started if this is your first Flutter project:
+* Explore weather data around the world.
+* Can explore weather forecast for 7 days.
+* Use open street map.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## How to use
+``git clone https://github.com/mg-kh/flutter_weather_app.git``
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+``flutter pub get``
+
+### Simple!
+
+---
+
+
